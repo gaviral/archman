@@ -8,6 +8,28 @@
  * do proper ghost mechanics (blinky/wimpy etc)
  */
 
+var archieImage = new Image();
+archieImage.src = 'archie.png';
+
+var ghost1Image = new Image();
+ghost1Image.src = 'ghost1.png';
+
+var ghost2Image = new Image();
+ghost2Image.src = 'ghost2.png';
+
+var ghost3Image = new Image();
+ghost3Image.src = 'ghost3.png';
+
+var ghost4Image = new Image();
+ghost4Image.src = 'ghost4.png';
+
+// var ghosts = [
+//     new Pacman.Ghost(game, map, "#FF0000"), // Red Ghost
+//     new Pacman.Ghost(game, map, "#00FFDE"), // Cyan Ghost
+//     new Pacman.Ghost(game, map, "#FFB8DE"), // Pink Ghost
+//     new Pacman.Ghost(game, map, "#FFB847")  // Orange Ghost
+// ];
+
 var NONE        = 4,
     UP          = 3,
     LEFT        = 2,
@@ -160,46 +182,69 @@ Pacman.Ghost = function (game, map, colour) {
         var high = game.getTick() % 10 > 5 ? 3  : -3;
         var low  = game.getTick() % 10 > 5 ? -3 : 3;
 
-        ctx.fillStyle = getColour();
-        ctx.beginPath();
+        // ctx.fillStyle = getColour();
+        // if (colour === ghost1Colour && ghost1Image.complete && ghost1Image.naturalHeight !== 0) {
+        //     ctx.drawImage(ghost1Image, left, top, s, s);
+        // } else if (colour === ghost2Colour && ghost2Image.complete && ghost2Image.naturalHeight !== 0) {
+        //     ctx.drawImage(ghost2Image, left, top, s, s);
+        // } else if (colour === ghost3Colour && ghost3Image.complete && ghost3Image.naturalHeight !== 0) {
+        //     ctx.drawImage(ghost3Image, left, top, s, s);
+        // } else if (colour === ghost4Colour && ghost4Image.complete && ghost4Image.naturalHeight !== 0) {
+        //     ctx.drawImage(ghost4Image, left, top, s, s);
+        // }
+        if (colour === "#FF0000" && ghost1Image.complete) { // Red Ghost
+            ctx.drawImage(ghost1Image, left, top, s, s);
+        } else if (colour === "#00FFDE" && ghost2Image.complete) { // Cyan Ghost
+            ctx.drawImage(ghost2Image, left, top, s, s);
+        } else if (colour === "#FFB8DE" && ghost3Image.complete) { // Pink Ghost
+            ctx.drawImage(ghost3Image, left, top, s, s);
+        } else if (colour === "#FFB847" && ghost4Image.complete) { // Orange Ghost
+            ctx.drawImage(ghost4Image, left, top, s, s);
+        }
+        else {
+            // Fallback to original ghost drawing if images fail to load
+            // ctx.fillStyle = getColour();
+            // ... existing drawing logic
+        }
+        // ctx.beginPath();
+        //
+        // ctx.moveTo(left, base);
+        //
+        // ctx.quadraticCurveTo(left, top, left + (s/2),  top);
+        // ctx.quadraticCurveTo(left + s, top, left+s,  base);
+        //
+        // // Wavy things at the bottom
+        // ctx.quadraticCurveTo(tl-(inc*1), base+high, tl - (inc * 2),  base);
+        // ctx.quadraticCurveTo(tl-(inc*3), base+low, tl - (inc * 4),  base);
+        // ctx.quadraticCurveTo(tl-(inc*5), base+high, tl - (inc * 6),  base);
+        // ctx.quadraticCurveTo(tl-(inc*7), base+low, tl - (inc * 8),  base);
+        // ctx.quadraticCurveTo(tl-(inc*9), base+high, tl - (inc * 10), base);
+        //
+        // ctx.closePath();
+        // ctx.fill();
 
-        ctx.moveTo(left, base);
-
-        ctx.quadraticCurveTo(left, top, left + (s/2),  top);
-        ctx.quadraticCurveTo(left + s, top, left+s,  base);
-        
-        // Wavy things at the bottom
-        ctx.quadraticCurveTo(tl-(inc*1), base+high, tl - (inc * 2),  base);
-        ctx.quadraticCurveTo(tl-(inc*3), base+low, tl - (inc * 4),  base);
-        ctx.quadraticCurveTo(tl-(inc*5), base+high, tl - (inc * 6),  base);
-        ctx.quadraticCurveTo(tl-(inc*7), base+low, tl - (inc * 8),  base); 
-        ctx.quadraticCurveTo(tl-(inc*9), base+high, tl - (inc * 10), base); 
-
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.fillStyle = "#FFF";
-        ctx.arc(left + 6,top + 6, s / 6, 0, 300, false);
-        ctx.arc((left + s) - 6,top + 6, s / 6, 0, 300, false);
-        ctx.closePath();
-        ctx.fill();
-
-        var f = s / 12;
-        var off = {};
-        off[RIGHT] = [f, 0];
-        off[LEFT]  = [-f, 0];
-        off[UP]    = [0, -f];
-        off[DOWN]  = [0, f];
-
-        ctx.beginPath();
-        ctx.fillStyle = "#000";
-        ctx.arc(left+6+off[direction][0], top+6+off[direction][1], 
-                s / 15, 0, 300, false);
-        ctx.arc((left+s)-6+off[direction][0], top+6+off[direction][1], 
-                s / 15, 0, 300, false);
-        ctx.closePath();
-        ctx.fill();
+        // ctx.beginPath();
+        // ctx.fillStyle = "#FFF";
+        // ctx.arc(left + 6,top + 6, s / 6, 0, 300, false);
+        // ctx.arc((left + s) - 6,top + 6, s / 6, 0, 300, false);
+        // ctx.closePath();
+        // ctx.fill();
+        //
+        // var f = s / 12;
+        // var off = {};
+        // off[RIGHT] = [f, 0];
+        // off[LEFT]  = [-f, 0];
+        // off[UP]    = [0, -f];
+        // off[DOWN]  = [0, f];
+        //
+        // ctx.beginPath();
+        // ctx.fillStyle = "#000";
+        // ctx.arc(left+6+off[direction][0], top+6+off[direction][1],
+        //         s / 15, 0, 300, false);
+        // ctx.arc((left+s)-6+off[direction][0], top+6+off[direction][1],
+        //         s / 15, 0, 300, false);
+        // ctx.closePath();
+        // ctx.fill();
 
     };
 
@@ -479,7 +524,8 @@ Pacman.User = function (game, map) {
             return;
         }
 
-        ctx.fillStyle = "#FFFF00";
+        // ctx.fillStyle = "#FFFF00";
+        ctx.drawImage(archieImage, ((position.x/10) * size), ((position.y/10) * size), size, size);
         ctx.beginPath();        
         ctx.moveTo(((position.x/10) * size) + half, 
                    ((position.y/10) * size) + half);
@@ -493,22 +539,20 @@ Pacman.User = function (game, map) {
 
     function draw(ctx) { 
 
-        var s     = map.blockSize, 
+        var s     = map.blockSize,
             angle = calcAngle(direction, position);
 
-        ctx.fillStyle = "#FFFF00";
-
-        ctx.beginPath();        
-
-        ctx.moveTo(((position.x/10) * s) + s / 2,
-                   ((position.y/10) * s) + s / 2);
-        
-        ctx.arc(((position.x/10) * s) + s / 2,
+        if (archieImage.complete && archieImage.naturalHeight !== 0) {
+            ctx.drawImage(archieImage, ((position.x/10) * s), ((position.y/10) * s), s, s);
+        } else {
+            ctx.fillStyle = "#FFFF00"; // Fallback to original color if image fails to load
+            ctx.beginPath();
+            ctx.arc(((position.x/10) * s) + s / 2,
                 ((position.y/10) * s) + s / 2,
-                s / 2, Math.PI * angle.start, 
-                Math.PI * angle.end, angle.direction); 
-        
-        ctx.fill();    
+                s / 2, Math.PI * angle.start,
+                Math.PI * angle.end, angle.direction);
+            ctx.fill();
+        }
     };
     
     initUser();
@@ -883,15 +927,17 @@ var PACMAN = (function () {
         ctx.fillStyle = "#FFFF00";
 
         for (var i = 0, len = user.getLives(); i < len; i++) {
-            ctx.fillStyle = "#FFFF00";
-            ctx.beginPath();
-            ctx.moveTo(150 + (25 * i) + map.blockSize / 2,
-                       (topLeft+1) + map.blockSize / 2);
-            
-            ctx.arc(150 + (25 * i) + map.blockSize / 2,
-                    (topLeft+1) + map.blockSize / 2,
-                    map.blockSize / 2, Math.PI * 0.25, Math.PI * 1.75, false);
-            ctx.fill();
+            // ctx.fillStyle = "#FFFF00";
+            // ctx.beginPath();
+            // ctx.moveTo(150 + (25 * i) + map.blockSize / 2,
+            //            (topLeft+1) + map.blockSize / 2);
+            //
+            // ctx.arc(150 + (25 * i) + map.blockSize / 2,
+            //         (topLeft+1) + map.blockSize / 2,
+            //         map.blockSize / 2, Math.PI * 0.25, Math.PI * 1.75, false);
+            // ctx.fill();
+            ctx.drawImage(archieImage, 150 + (25 * i), topLeft + 1, map.blockSize, map.blockSize);
+
         }
 
         ctx.fillStyle = !soundDisabled() ? "#00FF00" : "#FF0000";
